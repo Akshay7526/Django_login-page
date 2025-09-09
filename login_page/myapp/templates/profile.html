@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h2>{{ user.username }}'s Profile</h2>
+    <p>Email: {{ user.email }}</p>
+    <p>Last login: {{ user.last_login }}</p>
+    <p>Date joined: {{ user.date_joined }}</p>
+    <a href="{% url 'home' %}">Back to Dashboard</a>
+</body>
+</html>
