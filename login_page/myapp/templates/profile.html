@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profile Dashboard</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11,32 +11,65 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: flex-start;
+            padding: 40px;
         }
         .profile-container {
             background: #fff;
-            padding: 40px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
-            width: 400px;
-            text-align: left;
+            width: 500px;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #4a90e2;
         }
         h2 {
             color: #4a90e2;
-            margin-bottom: 20px;
-            text-align: center;
+            margin: 5px 0;
         }
-        p {
-            margin: 8px 0;
+        .username {
+            font-size: 14px;
+            color: #777;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, select {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 16px;
-            color: #333;
+        }
+        button:hover {
+            background: #357ab8;
         }
         a {
-            display: inline-block;
+            display: block;
             margin-top: 20px;
-            text-decoration: none;
+            text-align: center;
             color: #4a90e2;
+            text-decoration: none;
             font-weight: bold;
         }
         a:hover {
@@ -46,13 +79,23 @@
 </head>
 <body>
     <div class="profile-container">
-        <h2>{{ user.username }}'s Profile</h2>
-        <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Gender:</strong> {{ user.profile.get_gender_display }}</p>
-        <p><strong>Last login:</strong> {{ user.last_login }}</p>
-        <p><strong>Date joined:</strong> {{ user.date_joined }}</p>
-        <a href="{% url 'home' %}">Back to Dashboard</a>
+        <div class="profile-header">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+            {% else %}
+                <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic">
+            {% endif %}
+            <h2>{{ profile.first_name }}</h2>
+            <p class="username">@{{ user.username }}</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update Profile</button>
+        </form>
+
+        <a href="{% url 'home' %}">⬅ Back to Dashboard</a>
     </div>
 </body>
 </html>
