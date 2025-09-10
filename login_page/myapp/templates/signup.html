@@ -7,30 +7,34 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            height: 100vh;
+            background: #f4f6f9;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
         }
+
         .signup-container {
             background: #fff;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
             width: 350px;
             text-align: center;
         }
+
         .signup-container h2 {
             margin-bottom: 20px;
-            color: #333;
+            color: #4a90e2;
         }
+
         .messages {
             margin-bottom: 15px;
             list-style: none;
             padding: 0;
         }
+
         .messages li {
             padding: 10px;
             border-radius: 6px;
@@ -45,6 +49,7 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+
         input[type="text"],
         input[type="password"] {
             width: 100%;
@@ -54,11 +59,12 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
+
         button {
             width: 100%;
             padding: 12px;
             margin-top: 12px;
-            background: #2575fc;
+            background: #4a90e2;
             border: none;
             border-radius: 6px;
             color: white;
@@ -67,16 +73,17 @@
             transition: 0.3s;
         }
         button:hover {
-            background: #6a11cb;
+            background: #357ABD;
         }
-        .signup-container a {
+
+        a {
             display: inline-block;
             margin-top: 15px;
             text-decoration: none;
-            color: #2575fc;
+            color: #4a90e2;
             font-size: 14px;
         }
-        .signup-container a:hover {
+        a:hover {
             text-decoration: underline;
         }
     </style>
@@ -96,10 +103,20 @@
 
         <form method="post">
             {% csrf_token %}
+            <input type="text" name="first_name" placeholder="First Name" required>
+            <input type="text" name="last_name" placeholder="Surname (Optional)">
+            <input type="email" name="email" placeholder="Email" required>
+            <select name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+            </select>
             <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Sign Up</button>
         </form>
+
 
         <a href="{% url 'login' %}">Already have an account? Login</a>
     </div>

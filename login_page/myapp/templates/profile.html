@@ -7,61 +7,51 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            height: 100vh;
+            background: #f4f6f9;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100vh;
         }
         .profile-container {
             background: #fff;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0px 6px 15px rgba(0,0,0,0.2);
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
             width: 400px;
+            text-align: left;
+        }
+        h2 {
+            color: #4a90e2;
+            margin-bottom: 20px;
             text-align: center;
         }
-        .profile-container h2 {
-            margin-bottom: 20px;
+        p {
+            margin: 8px 0;
+            font-size: 16px;
             color: #333;
-        }
-        .profile-detail {
-            text-align: left;
-            margin: 10px 0;
-            font-size: 15px;
-            padding: 10px;
-            border-radius: 6px;
-            background: #f7f7f7;
-        }
-        .profile-detail strong {
-            color: #2575fc;
         }
         a {
             display: inline-block;
             margin-top: 20px;
             text-decoration: none;
-            color: #2575fc;
-            font-size: 14px;
-            padding: 10px 18px;
-            border: 1px solid #2575fc;
-            border-radius: 6px;
-            transition: 0.3s;
+            color: #4a90e2;
+            font-weight: bold;
         }
         a:hover {
-            background: #2575fc;
-            color: white;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="profile-container">
         <h2>{{ user.username }}'s Profile</h2>
-
-        <div class="profile-detail"><strong>Email:</strong> {{ user.email }}</div>
-        <div class="profile-detail"><strong>Last login:</strong> {{ user.last_login }}</div>
-        <div class="profile-detail"><strong>Date joined:</strong> {{ user.date_joined }}</div>
-
+        <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Gender:</strong> {{ user.profile.get_gender_display }}</p>
+        <p><strong>Last login:</strong> {{ user.last_login }}</p>
+        <p><strong>Date joined:</strong> {{ user.date_joined }}</p>
         <a href="{% url 'home' %}">Back to Dashboard</a>
     </div>
 </body>
