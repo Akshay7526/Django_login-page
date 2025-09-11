@@ -19,15 +19,30 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
-            width: 500px;
+            width: 600px;
         }
         .profile-header {
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
+        }
+        .edit-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #4a90e2;
+            color: white;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .edit-btn:hover {
+            background: #357ab8;
         }
         .profile-pic {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 15px;
@@ -41,18 +56,29 @@
             font-size: 14px;
             color: #777;
         }
+        .info {
+            margin: 20px 0;
+        }
+        .info p {
+            margin: 6px 0;
+            color: #333;
+        }
+        .info strong {
+            color: #4a90e2;
+        }
         form {
-            display: flex;
+            display: none;
             flex-direction: column;
             gap: 15px;
+            margin-top: 20px;
         }
-        input, select {
+        input, select, textarea {
             padding: 10px;
             border-radius: 6px;
             border: 1px solid #ccc;
             font-size: 14px;
         }
-        button {
+        button.save-btn {
             background: #4a90e2;
             color: white;
             padding: 12px;
@@ -61,7 +87,7 @@
             cursor: pointer;
             font-size: 16px;
         }
-        button:hover {
+        button.save-btn:hover {
             background: #357ab8;
         }
         a {
@@ -83,19 +109,36 @@
             {% if profile.profile_picture %}
                 <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
             {% else %}
-                <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-pic">
+                <img src= "/home/akshay/Documents/GitHub/Django_login-page/login_page/default_avatar2.jpg" class="profile-pic">
             {% endif %}
-            <h2>{{ profile.first_name }}</h2>
-            <p class="username">@{{ user.username }}</p>
+            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+            <p class="username">{{ user.username }}</p>
+            <button class="edit-btn" onclick="toggleEdit()">Edit</button>
         </div>
 
-        <form method="post" enctype="multipart/form-data">
+        <!-- Profile Info -->
+        <div class="info">
+            <p><strong>Gender:</strong> {{ profile.gender|default:"Not specified" }}</p>
+            <p><strong>Bio:</strong> {{ profile.bio|default:"No bio added yet" }}</p>
+            <p><strong>Joined:</strong> {{ user.date_joined|date:"F d, Y" }}</p>
+            <p><strong>Last Login:</strong> {{ user.last_login|date:"F d, Y H:i" }}</p>
+        </div>
+
+        <!-- Edit Form -->
+        <form method="post" enctype="multipart/form-data" id="editForm">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Update Profile</button>
+            <button type="submit" class="save-btn">Save Changes</button>
         </form>
 
         <a href="{% url 'home' %}">⬅ Back to Dashboard</a>
     </div>
+
+    <script>
+        function toggleEdit() {
+            const form = document.getElementById('editForm');
+            form.style.display = (form.style.display === "flex") ? "none" : "flex";
+        }
+    </script>
 </body>
 </html>

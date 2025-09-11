@@ -50,14 +50,14 @@
             color: #721c24;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input, select {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
             border-radius: 6px;
             border: 1px solid #ccc;
             box-sizing: border-box;
+            font-size: 14px;
         }
 
         button {
@@ -105,18 +105,16 @@
             {% csrf_token %}
             <input type="text" name="first_name" placeholder="First Name" required>
             <input type="text" name="last_name" placeholder="Surname (Optional)">
-            <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" placeholder="Email (will be your username)" required>
             <select name="gender" required>
                 <option value="">Select Gender</option>
                 <option value="M">Male</option>
                 <option value="F">Female</option>
                 <option value="O">Other</option>
             </select>
-            <input type="text" name="username" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Sign Up</button>
         </form>
-
 
         <a href="{% url 'login' %}">Already have an account? Login</a>
     </div>
