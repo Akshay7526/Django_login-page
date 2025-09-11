@@ -1,0 +1,18 @@
+# Ignore virtual environments
+myenv/
+venv/
+.env/
+
+# Ignore database
+*.sqlite3
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore IDE/project settings
+.vscode/
+.idea/
+*.swp
