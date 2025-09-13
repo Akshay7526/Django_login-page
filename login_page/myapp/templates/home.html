@@ -79,7 +79,10 @@
     <div class="navbar">
         <h1>My Dashboard</h1>
         <div class="profile-info">
-            <div class="profile-icon">{{ user.username|first|upper }}</div>
+            <!-- Show initials if profile picture is missing -->
+            <div class="profile-icon">
+                {{ user.profile.first_name|first|upper }}{{ user.profile.last_name|first|upper }}
+            </div>
             <a href="{% url 'profile' %}">Profile</a>
             <a href="{% url 'logout' %}">Logout</a>
         </div>
@@ -87,7 +90,7 @@
 
     <!-- Dashboard body -->
     <div class="dashboard">
-        <h2>Welcome, {{ first_name }}!</h2>
+        <h2>Welcome, {{ user.profile.first_name }} {{ user.profile.last_name }}!</h2>
         <p>This is your personalized dashboard. You can view your profile or explore more features here.</p>
     </div>
 </body>
